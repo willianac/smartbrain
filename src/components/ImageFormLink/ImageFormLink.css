@@ -1,0 +1,74 @@
+.conteiner {
+    margin-top: 2rem;
+}
+.form {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    width: 35%;
+    height: 14vh;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    background-color: #F8BA43;
+    opacity: 0.8;
+    background: linear-gradient(135deg, #ab6a1f55 25%, transparent 25%) -10px 0/ 20px 20px, linear-gradient(225deg, #ab6a1f 25%, transparent 25%) -10px 0/ 20px 20px, linear-gradient(315deg, #ab6a1f55 25%, transparent 25%) 0px 0/ 20px 20px, linear-gradient(45deg, #ab6a1f 25%, #e98100 25%) 0px 0/ 20px 20px;
+}
+
+.form > input {
+    width: 70%;
+    height: 40px;
+    outline: none;
+    border-radius: 5px;
+    border: none;
+    margin-right: 5px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+}
+
+.form > button {
+    width: 20%;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid blueviolet;
+    background-color:blueviolet;
+    transition: all 0.2s;
+    cursor: pointer;
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+    margin-left: 5px;
+}
+
+.form > button:hover {
+    background-color: darkblue;
+    border: 1px solid blueviolet;
+}
+
+#textIntro {
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 22px;
+    color: black;
+}
+
+@media only screen and (max-width: 820px) {
+    .form {
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        width: 90%;
+        height: 14vh;
+        align-items: center;
+        border-radius: 5px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+        background-color: #F8BA43;
+        opacity: 0.8;
+        background: linear-gradient(135deg, #ab6a1f55 25%, transparent 25%) -10px 0/ 20px 20px, linear-gradient(225deg, #ab6a1f 25%, transparent 25%) -10px 0/ 20px 20px, linear-gradient(315deg, #ab6a1f55 25%, transparent 25%) 0px 0/ 20px 20px, linear-gradient(45deg, #ab6a1f 25%, #e98100 25%) 0px 0/ 20px 20px;
+    }
+    #textIntro {
+        text-align: center;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 15px;
+    }
+  }
