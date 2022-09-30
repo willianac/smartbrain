@@ -4,6 +4,7 @@ import Logo from './components/Logo/Logo';
 import ImageFormLink from './components/ImageFormLink/ImageFormLink';
 import Rank from './components/Rank/Rank';
 import Particle from './components/Particles/Particle';
+import toast, { Toaster } from "react-hot-toast";
 import FaceDetection from './components/FaceDetection/FaceDetection';
 import SignIn from './components/SignIn/SignIn';
 import Register from './components/Register/Register';
@@ -98,6 +99,7 @@ class App extends React.Component {
       this.setState(initialState)
     } else if(route === 'homescreen') {
       this.setState({isSignedIn : true})
+      toast.success("Successfully logged in")
     }
     this.setState({route : route})
   }
@@ -121,6 +123,7 @@ class App extends React.Component {
           : <Register loadUser={this.loadUser} onRouteChange ={this.onRouteChange}/>
         )
         }
+        <Toaster />
       </div>
     );
   }

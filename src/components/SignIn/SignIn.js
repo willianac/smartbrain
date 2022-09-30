@@ -2,6 +2,7 @@ import React from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './SignIn.css'
+import toast, { Toaster } from "react-hot-toast";
 
 class SignIn extends React.Component {
     constructor(props) {
@@ -37,7 +38,7 @@ class SignIn extends React.Component {
           this.props.loadUser(data)
           this.props.onRouteChange('homescreen')
         } else {
-          alert(data)
+          toast.error(data)
         }
       })
     }
@@ -45,6 +46,7 @@ class SignIn extends React.Component {
     render() {
       return (
         <div className="signInBox">
+          <Toaster />
           <Form.Group className="mb-5" controlId="formBasicEmail">
             <Form.Label style={{display : 'flex', justifyContent : 'center',fontSize : '40px', fontWeight : '700'}}>Sign In</Form.Label><br />
             <Form.Label>Email address</Form.Label>

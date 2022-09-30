@@ -14,7 +14,7 @@ const Logo = () => {
                 scale={1.02}
             >
                 <div className="inner-element">
-                <div><img alt="logo" src={brain} style={{width : '100px'}} /></div>
+                <div><img alt="logo" src={brain} id="logo"/></div>
                 </div>
             </Tilt>
         </div>

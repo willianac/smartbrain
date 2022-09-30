@@ -10,3 +10,17 @@
     color: white;
     border-radius: 3px;
 }
+
+#logo {
+    width: 100px;
+}
+
+@media (max-width: 992px) { 
+    .parallax-effect-glare-scale {
+        width: 100px;
+        height: 100px;
+    }
+    #logo {
+        width: 65px;
+    }
+}
