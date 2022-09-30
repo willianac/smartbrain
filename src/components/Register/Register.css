@@ -1,3 +1,8 @@
+.inputErrors {
+    color: red;
+    font-weight: 500;
+}
+
 .registerBox {
     width : 20%;
     margin : auto; 
@@ -6,8 +11,26 @@
     border-radius : 8px;
 }
 
-@media only screen and (max-width: 820px) {
+@media (min-width: 1200px) {
     .registerBox {
-        width: 100%;
+        width: 20%;
+    }
+}
+
+@media (max-width: 1200px) and (min-width: 992px) { 
+	.registerBox {
+        width: 50%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px) { 
+    .registerBox {
+        width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .registerBox {
+        width: 90%;
     }
 }
