@@ -48,7 +48,7 @@ class SignIn extends React.Component {
         <div className="signInBox">
           <Toaster />
           <Form.Group className="mb-5" controlId="formBasicEmail">
-            <Form.Label style={{display : 'flex', justifyContent : 'center',fontSize : '40px', fontWeight : '700'}}>Sign In</Form.Label><br />
+            <Form.Label style={{display : 'flex', justifyContent : 'center',fontSize : '40px', fontWeight : '700', color : '#123533'}}>Sign In</Form.Label><br />
             <Form.Label>Email address</Form.Label>
             <Form.Control onInput={this.onEmailChange} type="email" placeholder="Enter email" />
           </Form.Group>
@@ -57,7 +57,7 @@ class SignIn extends React.Component {
             <Form.Control onInput={this.onPasswordChange} type="password" placeholder="Password" />
           </Form.Group>
           <Button variant="primary" type="submit" onClick={this.onButtonSubmit}>
-            Submit
+            Sign In
           </Button>
         </div>
       )

@@ -1,0 +1,12 @@
+.rankText {
+    text-align : center;
+    color : white;
+    font-size : 35px;
+    font-family : 'Courier New'
+}
+
+@media (max-width: 992px) { 
+    .rankText {
+        font-size: 18px;
+    }
+}

@@ -65,7 +65,7 @@ const Register = ({ loadUser, onRouteChange }) => {
                 }) => {
                     return (
                         <form className="registerBox" onSubmit={handleSubmit}>
-                            <Form.Label style={{display : 'flex', justifyContent : 'center',fontSize : '40px', fontWeight : '700'}}>Register</Form.Label><br />
+                            <Form.Label style={{display : 'flex', justifyContent : 'center',fontSize : '40px', fontWeight : '700', color : '#123533'}}>Register</Form.Label><br />
                             <Form.Group className="mb-3" controlId="formBasicName">
                                 <Form.Label>Name</Form.Label>
                                 <Form.Control 
@@ -100,7 +100,7 @@ const Register = ({ loadUser, onRouteChange }) => {
                                 <div className="inputErrors">{touched.password && errors.password}</div>
                             </Form.Group>
                             <Button variant="primary" type="submit" >
-                                Submit
+                                Register
                             </Button>
                         </form>
                     )
