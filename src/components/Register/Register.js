@@ -19,7 +19,7 @@ const validationSchema = Yup.object().shape({
 })
 
 const Register = ({ loadUser, onRouteChange }) => {
-    const handleSubmit = (values) => {
+    const handleSubmit = (values, setSubmitting) => {
         try {
             fetch('https://agile-hamlet-40668.herokuapp.com/register', {
                 method : 'POST',
@@ -36,6 +36,7 @@ const Register = ({ loadUser, onRouteChange }) => {
                     loadUser(data)
                     onRouteChange('homescreen')
                 } else {
+                    setSubmitting(false)
                     toast.error(data)
                 }
             })
@@ -48,10 +49,10 @@ const Register = ({ loadUser, onRouteChange }) => {
         return (
             <div>
                 <Toaster />
-                <Formik 
+                <Formik
                  initialValues={{name : "", email : "", password : ""}}
-                 onSubmit={(values) => {
-                    handleSubmit(values)
+                 onSubmit={(values, {setSubmitting}) => {
+                    handleSubmit(values, setSubmitting)
                  }}
                  validationSchema={validationSchema}
             >
@@ -61,7 +62,8 @@ const Register = ({ loadUser, onRouteChange }) => {
                     handleSubmit,
                     handleChange,
                     handleBlur,
-                    touched
+                    touched,
+                    isSubmitting
                 }) => {
                     return (
                         <form className="registerBox" onSubmit={handleSubmit}>
@@ -99,7 +101,7 @@ const Register = ({ loadUser, onRouteChange }) => {
                                 />
                                 <div className="inputErrors">{touched.password && errors.password}</div>
                             </Form.Group>
-                            <Button variant="primary" type="submit" >
+                            <Button variant="primary" type="submit" disabled={isSubmitting}>
                                 Register
                             </Button>
                         </form>

@@ -23,7 +23,8 @@ class SignIn extends React.Component {
       this.setState({signInPassword : value})
     }
 
-    onButtonSubmit = () => {
+    onButtonSubmit = (event) => {
+      event.target.disabled = true;
       fetch('https://agile-hamlet-40668.herokuapp.com/signin', {
         method : 'POST',
         headers : {'Content-Type' : 'application/json'},
@@ -38,6 +39,7 @@ class SignIn extends React.Component {
           this.props.loadUser(data)
           this.props.onRouteChange('homescreen')
         } else {
+          event.target.disabled = false;
           toast.error(data)
         }
       })
@@ -45,7 +47,7 @@ class SignIn extends React.Component {
 
     render() {
       return (
-        <div className="signInBox">
+        <div className='signInBox'>
           <Toaster />
           <Form.Group className="mb-5" controlId="formBasicEmail">
             <Form.Label style={{display : 'flex', justifyContent : 'center',fontSize : '40px', fontWeight : '700', color : '#123533'}}>Sign In</Form.Label><br />
