@@ -37,7 +37,7 @@ class SignIn extends React.Component {
       .then(data => {
         if(data.id) {
           this.props.loadUser(data)
-          this.props.onRouteChange('homescreen')
+          this.props.onRouteChange('homescreen', "Successfully logged in")
         } else {
           event.target.disabled = false;
           toast.error(data)

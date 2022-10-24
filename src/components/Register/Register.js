@@ -34,7 +34,7 @@ const Register = ({ loadUser, onRouteChange }) => {
             .then(data => {
                 if(data.id) {
                     loadUser(data)
-                    onRouteChange('homescreen')
+                    onRouteChange('homescreen', 'Registered with success!')
                 } else {
                     setSubmitting(false)
                     toast.error(data)

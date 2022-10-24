@@ -1,7 +1,7 @@
 import React from "react";
-import "./Rank.css"
+import "./Entries.css"
 
-const Rank = ({User}) => {
+const Entries = ({User}) => {
     const {name, entries} = User
     return (
         <div className="rankText">
@@ -11,4 +11,4 @@ const Rank = ({User}) => {
     )
 }
 
-export default Rank;
+export default Entries;

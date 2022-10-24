@@ -1,11 +1,19 @@
 import React from "react";
 import './Navigation.css'
+import ranking from "./ranking.png"
 
-const Navigation = ({ onRouteChange, isSignedIn }) => {
+const Navigation = ({ onRouteChange, isSignedIn, displayRank }) => {
+
+    const onRankingClick = () => {
+        displayRank()
+        onRouteChange('ranking')
+    }
+
     if(isSignedIn) {
     return (
         <div className="navbar">
-           <a className="button button-5" onClick={() => onRouteChange('signout')}>Sign out</a>
+            <img src={ranking} className='rankingImg' onClick={onRankingClick}/>
+            <a className="button button-5" onClick={() => onRouteChange('signout')}>Sign out</a>
         </div>
     )
     } else {
