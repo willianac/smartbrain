@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom"
 import "./RankList.css"
 
-const RankList = ({onRouteChange, ranking}) => {
+const RankList = ({ ranking }) => {
     return (
         <div className="rankConteiner">
             <div className="rankWrapper">
@@ -11,7 +12,7 @@ const RankList = ({onRouteChange, ranking}) => {
                             </div>
                 })}
             </div>
-            <a className="rankButton" onClick={() => onRouteChange('homescreen')}>Homescreen</a>
+            <Link to='/smartbrain' className="rankButton">Homescreen</Link>
         </div>
     )
 }

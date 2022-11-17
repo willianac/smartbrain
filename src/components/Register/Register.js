@@ -5,6 +5,7 @@ import './Register.css'
 import { Formik } from "formik";
 import * as Yup from "yup";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
     name : Yup.string()
@@ -18,7 +19,8 @@ const validationSchema = Yup.object().shape({
         .min(6, 'Too short, should be 6 chars minimum')
 })
 
-const Register = ({ loadUser, onRouteChange }) => {
+const Register = ({ loadUser, setToken }) => {
+    const navigate = useNavigate()
     const handleSubmit = (values, setSubmitting) => {
         try {
             fetch('https://agile-hamlet-40668.herokuapp.com/register', {
@@ -33,8 +35,11 @@ const Register = ({ loadUser, onRouteChange }) => {
             .then(response => response.json())
             .then(data => {
                 if(data.id) {
+                    setToken(data.token)
                     loadUser(data)
-                    onRouteChange('homescreen', 'Registered with success!')
+                    navigate('/smartbrain')
+                    toast.success('Registered with success')
+                    
                 } else {
                     setSubmitting(false)
                     toast.error(data)
