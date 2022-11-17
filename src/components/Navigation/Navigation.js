@@ -1,26 +1,23 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import './Navigation.css'
 import ranking from "./ranking.png"
 
-const Navigation = ({ onRouteChange, isSignedIn, displayRank }) => {
+const Navigation = ({ displayRank }) => {
+    const location = useLocation()
 
-    const onRankingClick = () => {
-        displayRank()
-        onRouteChange('ranking')
-    }
-
-    if(isSignedIn) {
+    if(location.pathname === '/smartbrain' || location.pathname === '/ranking') {
     return (
         <div className="navbar">
-            <img src={ranking} className='rankingImg' onClick={onRankingClick}/>
-            <a className="button button-5" onClick={() => onRouteChange('signout')}>Sign out</a>
+            <Link to='/ranking'><img src={ranking} className='rankingImg' onClick={displayRank}/></Link>
+            <Link className="button button-5" onClick={() => localStorage.clear()} to='/signin'>Sign Out</Link>
         </div>
     )
     } else {
         return (
             <div className="navbar">
-                <a className="button button-5" onClick={() => onRouteChange('register')}>Register</a>
-                <a className="button button-5" onClick={() => onRouteChange('signin')}>Sign In</a>
+                <Link className="button button-5" to='/register'>Register</Link>
+                <Link className="button button-5" to='/signin'>Sign In</Link>
             </div>
         )
     }

@@ -1,21 +1,23 @@
 import React from 'react';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import jwt from "jsonwebtoken"
+
 import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import ImageFormLink from './components/ImageFormLink/ImageFormLink';
 import Entries from './components/Entries/Entries';
 import Particle from './components/Particles/Particle';
-import toast, { Toaster } from "react-hot-toast";
 import FaceDetection from './components/FaceDetection/FaceDetection';
 import SignIn from './components/SignIn/SignIn';
 import Register from './components/Register/Register';
 import RankList from './components/RankList/RankList';
+import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes';
 
 const initialState = {
   input : '',
   imageURL : '',
   box : {},
-  route : 'signin',
-  isSignedIn : false,
   user : {
     id : undefined,
     name : '',
@@ -25,8 +27,6 @@ const initialState = {
   },
   ranking : []
 }
-//route - to see which components will render
-//isSignedIn - to know which options to display in the navigation, according to the route
 
 class App extends React.Component {
   constructor() {
@@ -41,6 +41,44 @@ class App extends React.Component {
       entries : data.entries,
       joined : data.joined
     }})
+  }
+
+  setToken = (data) => {
+    localStorage.setItem('token', data)
+  }
+
+  checkToken = (userToken) => {
+      const decoded = jwt.verify(userToken, 'WILL2009', (err, decode) => {
+        if(err) {
+            return err 
+        }
+        return decode
+      })
+      return decoded
+  }
+
+  getToken = () => {
+    const userToken = localStorage.getItem('token')
+    const isValidToken = this.checkToken(userToken)
+    if(isValidToken.userId) {
+      return {
+        userToken : userToken,
+        isValidToken : isValidToken
+      }
+    }
+    if(!isValidToken.userId) {
+      localStorage.clear()
+      return isValidToken
+    }
+  }
+
+  componentDidMount () {
+    const token = this.getToken()
+    if(token.isValidToken) {
+      fetch(`https://agile-hamlet-40668.herokuapp.com/profile/${token.isValidToken.userId}`)
+      .then(response => response.json())
+      .then(data => this.loadUser(data))
+    }
   }
 
   onInputChange = (event) => {
@@ -97,16 +135,6 @@ class App extends React.Component {
     this.setState({box : box})
   }
 
-  onRouteChange = (route, text) => { 
-    if(route === 'signout') {
-      this.setState(initialState)
-    } else if(route === 'homescreen') {
-      this.setState({isSignedIn : true})
-      toast.success(text)
-    }
-    this.setState({route : route})
-  }
-
   displayRank = async () => {
     const response = await fetch('https://agile-hamlet-40668.herokuapp.com/ranking')
     const ranking = await response.json()
@@ -115,35 +143,42 @@ class App extends React.Component {
   }
 
   render () {
-    const switchManager = () => {
-      switch (this.state.route) {
-        case 'homescreen' :
-          return (
-            <div> 
-              <Logo />
-              <Entries User={this.state.user} />
-              <ImageFormLink onInputChange={this.onInputChange} onSubmit={this.onSubmit} />
-              <FaceDetection imageURL={this.state.imageURL} box={this.state.box}/>
-            </div>
-          )
-        case 'signin' :
-            return <SignIn loadUser={this.loadUser} onRouteChange ={this.onRouteChange}/> ;
-        case 'register' :
-            return <Register loadUser={this.loadUser} onRouteChange ={this.onRouteChange}/>;
-        case 'signout' : 
-            return <SignIn loadUser={this.loadUser} onRouteChange ={this.onRouteChange}/>;
-        case 'ranking' :
-            return <RankList onRouteChange={this.onRouteChange} ranking={this.state.ranking}/>
-      }
-    }
-
     return (
-      <div>
-        <Toaster />
+      <BrowserRouter>
         <Particle />
-        <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange} displayRank={this.displayRank}/>
-        {switchManager()}
-      </div>
+        <Navigation displayRank={this.displayRank}/>;
+        <Toaster />
+        <Routes>
+          <Route element={<ProtectedRoutes getToken={this.getToken} loadUser={this.loadUser} />}>
+            <Route 
+              path='/smartbrain' 
+              element={
+                <>
+                  <Logo />
+                  <Entries User={this.state.user} />
+                  <ImageFormLink onInputChange={this.onInputChange} onSubmit={this.onSubmit} />
+                  <FaceDetection imageURL={this.state.imageURL} box={this.state.box}/>
+                </>
+            }/>
+            <Route 
+              path='/ranking'
+              element={<RankList ranking={this.state.ranking}/>}
+            />
+          </Route>
+          <Route 
+            path='/signin' 
+            element={<SignIn loadUser={this.loadUser} setToken={this.setToken}/>}
+          />
+          <Route 
+            path='/register' 
+            element={<Register loadUser={this.loadUser} setToken={this.setToken}/>}
+          />
+          <Route 
+            path='*'
+            element={<Navigate to="/smartbrain" />}
+          />
+        </Routes>
+      </BrowserRouter>
     );
   }
 }

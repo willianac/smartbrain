@@ -1,43 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './SignIn.css'
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
-class SignIn extends React.Component {
-    constructor(props) {
-      super(props)
-      this.state = {
-        signInEmail : '',
-        signInPassword : ''
-      }
-    }
 
-    onEmailChange = (event) => {
+
+const SignIn = ({loadUser, setToken}) => {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const navigate = useNavigate()
+
+    const onEmailChange = (event) => {
       let value = event.target.value
-      this.setState({signInEmail : value})
+      setEmail(value)
     }
 
-    onPasswordChange = (event) => {
+    const onPasswordChange = (event) => {
       let value = event.target.value
-      this.setState({signInPassword : value})
+      setPassword(value)
     }
 
-    onButtonSubmit = (event) => {
+    const onButtonSubmit = (event) => {
       event.target.disabled = true;
       fetch('https://agile-hamlet-40668.herokuapp.com/signin', {
         method : 'POST',
         headers : {'Content-Type' : 'application/json'},
         body : JSON.stringify({
-          email : this.state.signInEmail,
-          password : this.state.signInPassword,
+          email : email,
+          password : password,
         })
       })
+      
       .then(response => response.json())
-      .then(data => {
+      .then(async (data) => { 
         if(data.id) {
-          this.props.loadUser(data)
-          this.props.onRouteChange('homescreen', "Successfully logged in")
+          setToken(data.token)
+          loadUser(data)
+          navigate('/smartbrain')
+          toast.success('Successfully logged in')
+          
         } else {
           event.target.disabled = false;
           toast.error(data)
@@ -45,24 +48,22 @@ class SignIn extends React.Component {
       })
     }
 
-    render() {
       return (
         <div className='signInBox'>
           <Toaster />
           <Form.Group className="mb-5" controlId="formBasicEmail">
             <Form.Label style={{display : 'flex', justifyContent : 'center',fontSize : '40px', fontWeight : '700', color : '#123533'}}>Sign In</Form.Label><br />
             <Form.Label>Email address</Form.Label>
-            <Form.Control onInput={this.onEmailChange} type="email" placeholder="Enter email" />
+            <Form.Control onInput={onEmailChange} type="email" placeholder="Enter email" />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control onInput={this.onPasswordChange} type="password" placeholder="Password" />
+            <Form.Control onInput={onPasswordChange} type="password" placeholder="Password" />
           </Form.Group>
-          <Button variant="primary" type="submit" onClick={this.onButtonSubmit}>
+          <Button variant="primary" type="submit" onClick={onButtonSubmit}>
             Sign In
           </Button>
         </div>
       )
     }
-}
 export default SignIn;
