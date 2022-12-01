@@ -144,7 +144,7 @@ class App extends React.Component {
 
   render () {
     return (
-      <BrowserRouter>
+      <BrowserRouter basename='/smartbrain'>
         <Particle />
         <Navigation displayRank={this.displayRank}/>;
         <Toaster />

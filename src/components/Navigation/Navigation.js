@@ -6,7 +6,7 @@ import ranking from "./ranking.png"
 const Navigation = ({ displayRank }) => {
     const location = useLocation()
 
-    if(location.pathname === '/smartbrain/' || location.pathname === '/ranking/') {
+    if(location.pathname === '/smartbrain' || location.pathname === '/ranking') {
     return (
         <div className="navbar">
             <Link to='/ranking'><img src={ranking} className='rankingImg' onClick={displayRank}/></Link>
