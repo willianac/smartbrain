@@ -23,7 +23,7 @@ const Register = ({ loadUser, setToken }) => {
     const navigate = useNavigate()
     const handleSubmit = (values, setSubmitting) => {
         try {
-            fetch('https://agile-hamlet-40668.herokuapp.com/register', {
+            fetch('https://sparkling-night-490.fly.dev/register', {
                 method : 'POST',
                 headers : {'Content-Type' : 'application/json'},
                 body : JSON.stringify({

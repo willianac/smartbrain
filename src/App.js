@@ -75,7 +75,7 @@ class App extends React.Component {
   componentDidMount () {
     const token = this.getToken()
     if(token.isValidToken) {
-      fetch(`https://agile-hamlet-40668.herokuapp.com/profile/${token.isValidToken.userId}`)
+      fetch(`https://sparkling-night-490.fly.dev/profile/${token.isValidToken.userId}`)
       .then(response => response.json())
       .then(data => this.loadUser(data))
     }
@@ -87,7 +87,7 @@ class App extends React.Component {
 
   onSubmit = () => {
     this.setState({imageURL : this.state.input})
-    fetch('https://agile-hamlet-40668.herokuapp.com/imageUrl', {
+    fetch('https://sparkling-night-490.fly.dev/imageUrl', {
       method : 'post',
       headers : {'Content-Type' : 'application/json'},
       body : JSON.stringify({
@@ -98,7 +98,7 @@ class App extends React.Component {
     .then(result => {
       if(result) {
         this.displayFaceBox(this.calculateBoundingBox(result))
-        fetch('https://agile-hamlet-40668.herokuapp.com/image', {
+        fetch('https://sparkling-night-490.fly.dev/image', {
           method : 'put',
           headers : {'Content-Type' : 'application/json'},
           body : JSON.stringify({
@@ -136,7 +136,7 @@ class App extends React.Component {
   }
 
   displayRank = async () => {
-    const response = await fetch('https://agile-hamlet-40668.herokuapp.com/ranking')
+    const response = await fetch('https://sparkling-night-490.fly.dev/ranking')
     const ranking = await response.json()
     ranking.sort((a, b) => b.entries - a.entries)
     this.setState({ranking : ranking})

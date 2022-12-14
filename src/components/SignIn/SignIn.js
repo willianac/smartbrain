@@ -24,7 +24,7 @@ const SignIn = ({loadUser, setToken}) => {
 
     const onButtonSubmit = (event) => {
       event.target.disabled = true;
-      fetch('https://agile-hamlet-40668.herokuapp.com/signin', {
+      fetch('https://sparkling-night-490.fly.dev/signin', {
         method : 'POST',
         headers : {'Content-Type' : 'application/json'},
         body : JSON.stringify({
