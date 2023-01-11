@@ -22,3 +22,11 @@ Faça o teste: entre no link fixado no repositório, crie um conta e comece a us
 E Postgres para armazenar os dados!
 
 O serviço que está rodando tanto a API quanto o Postgres é o Fly.io!
+
+**Para rodar na sua máquina:**
+
+1- Clone o repositório
+
+2- `npm install`
+
+3- `npm start`
